@@ -628,26 +628,24 @@ public function custom_selective_plugin_loading($plugins) {
             return $this->filter_plugins($plugins, 'taxopress_autoterms_content_by_ajax');
         }
     }
-
+    function ajax_offloading_enqueue_script() {
+        wp_enqueue_script(
+            'ajax-offloading', // Handle for the script
+            plugin_dir_url( __FILE__ ) . 'js/ajax-offloading.js', // Path to the JS file
+            array( 'jquery' ), // Dependencies
+            '1.0', // Version
+            true // Load in footer
+        );
+    
+        // Localize script to pass AJAX URL and nonce
+        wp_localize_script( 'ajax-offloading', 'ajaxOffloading', array(
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'nonce'    => wp_create_nonce( 'ajax_offloading_nonce' ),
+        ));
+    }
+    add_action( 'wp_enqueue_scripts', 'ajax_offloading_enqueue_script' );
+    
     // Initialize the class
     new ComprehensiveCacheControlOffloader();
 }
-
-function ajax_offloading_enqueue_script() {
-    wp_enqueue_script(
-        'ajax-offloading', // Handle for the script
-        plugin_dir_url( __FILE__ ) . 'js/ajax-offloading.js', // Path to the JS file
-        array( 'jquery' ), // Dependencies
-        '1.0', // Version
-        true // Load in footer
-    );
-
-    // Localize script to pass AJAX URL and nonce
-    wp_localize_script( 'ajax-offloading', 'ajaxOffloading', array(
-        'ajax_url' => admin_url( 'admin-ajax.php' ),
-        'nonce'    => wp_create_nonce( 'ajax_offloading_nonce' ),
-    ));
-}
-add_action( 'wp_enqueue_scripts', 'ajax_offloading_enqueue_script' );
-
 ?>
