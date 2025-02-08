@@ -613,43 +613,43 @@ public function custom_selective_plugin_loading($plugins) {
         public function custom_selective_plugin_loading_elementor_ajax($plugins) {
             return $this->filter_plugins($plugins, 'elementor_ajax');
         }
-    
         public function custom_selective_plugin_loading_inline_save($plugins) {
-            return $this->filter_plugins($plugins, 'inline-save');
-        }
-    
-        public function custom_selective_plugin_loading_memberpress($plugins) {
-            return $this->filter_plugins($plugins, 'mepr_process_login_form');
-        }
-        public function custom_selective_plugin_wpematico_cron($plugins) {
-            return $this->filter_plugins($plugins, 'wpematico_cron');
-        }
-        public function custom_selective_plugin_loading_taxopress_autoterms_content_by_ajax($plugins) {
-            return $this->filter_plugins($plugins, 'taxopress_autoterms_content_by_ajax');
-        }
-    }
-    class ComprehensiveCacheControlOffloader {
-
-        public function __construct() {
-            // Hook into WordPress to enqueue scripts
-            add_action( 'wp_enqueue_scripts', array( $this, 'ajax_offloading_enqueue_script' ) );
-        }
-    
-        public function ajax_offloading_enqueue_script() {
-            wp_enqueue_script(
-                'ajax-offloading',
-                plugin_dir_url( __FILE__ ) . 'js/ajax-offloading.js',
-                array( 'jquery' ),
-                '1.0',
-                true
-            );
-    
-            wp_localize_script( 'ajax-offloading', 'ajaxOffloading', array(
-                'ajax_url' => admin_url( 'admin-ajax.php' ),
-                'nonce'    => wp_create_nonce( 'ajax_offloading_nonce' ),
-            ));
-        }
-    // Initialize the class
-    new ComprehensiveCacheControlOffloader();
-}
-?>
+                return $this->filter_plugins($plugins, 'inline-save');
+            }
+            class ComprehensiveCacheControlOffloader {
+                public function custom_selective_plugin_loading_memberpress($plugins) {
+                    return $this->filter_plugins($plugins, 'mepr_process_login_form');
+                }
+            
+                public function custom_selective_plugin_wpematico_cron($plugins) {
+                    return $this->filter_plugins($plugins, 'wpematico_cron');
+                }
+            
+                public function custom_selective_plugin_loading_taxopress_autoterms_content_by_ajax($plugins) {
+                    return $this->filter_plugins($plugins, 'taxopress_autoterms_content_by_ajax');
+                }
+            
+                public function __construct() {
+                    // Hook into WordPress to enqueue scripts
+                    add_action( 'wp_enqueue_scripts', array( $this, 'ajax_offloading_enqueue_script' ) );
+                }
+            
+                public function ajax_offloading_enqueue_script() {
+                    wp_enqueue_script(
+                        'ajax-offloading',
+                        plugin_dir_url( __FILE__ ) . 'js/ajax-offloading.js',
+                        array( 'jquery' ),
+                        '1.0',
+                        true
+                    );
+            
+                    wp_localize_script( 'ajax-offloading', 'ajaxOffloading', array(
+                        'ajax_url' => admin_url( 'admin-ajax.php' ),
+                        'nonce'    => wp_create_nonce( 'ajax_offloading_nonce' ),
+                    ));
+                }
+            }
+            
+            // Initialize the class
+            new ComprehensiveCacheControlOffloader();
+            ?>
