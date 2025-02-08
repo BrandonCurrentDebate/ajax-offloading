@@ -639,12 +639,12 @@ public function custom_selective_plugin_loading($plugins) {
             '1.0',
             true
         );
+
         wp_localize_script('ajax-offloading', 'ajaxOffloading', [
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce'    => wp_create_nonce('ajax_offloading_nonce')
         ]);
         }
-    }   
     // Initialize the class
     new ComprehensiveCacheControlOffloader();
 ?>
