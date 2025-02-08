@@ -633,7 +633,7 @@ public function custom_selective_plugin_loading($plugins) {
     new ComprehensiveCacheControlOffloader();
 }
 
-private function ajax_offloading_enqueue_script() {
+function ajax_offloading_enqueue_script() {
     wp_enqueue_script(
         'ajax-offloading',
         plugin_dir_url( __FILE__ ) . 'js/ajax-offloading.js',
